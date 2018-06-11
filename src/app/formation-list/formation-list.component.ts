@@ -1,23 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+
+import FormationService from "../services/formations/FormationService";
 import { Formation } from '../../Formation';
 
 @Component({
   selector: 'app-formation-list',
   templateUrl: './formation-list.component.html',
-  styleUrls: ['./formation-list.component.css']
+  styleUrls: ['./formation-list.component.css'],
+  providers:[FormationService]
 })
+
 export class FormationListComponent implements OnInit {
 
-  constructor() { }
+  formations: Array<Formation>
 
-  formationList: Array<Formation> = [];
+  constructor(private formationService: FormationService) { }
 
   ngOnInit() {
-    this.formationList = [
-      new Formation("java", "formation de java"),
-      new Formation("Angular", "formation d'Angular"),
-      new Formation("Js", "formation de JS"),
-    ]
+ this.formationService.getFormation().then(value=>this.formations=value);
   }
+
+
 
 }
